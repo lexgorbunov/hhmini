@@ -1,0 +1,30 @@
+buildscript {
+    ext.kotlin_version = '1.1.3-2'
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    supportVersion = '25.3.1' //https://crosswalk-project.org/jira/browse/XWALK-7214
+    buildToolsVersion = "25.0.3"
+    targetSdkVersion = 25
+    minSdkVersion = 9
+    compileSdkVersion = 25
+    kotlin_version = '1.1.3-2'
+}

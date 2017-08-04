@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">HhMini</string>
+    <string name="error_vacancies_loading">Ошибка загрузки вакансий</string>
+</resources>
