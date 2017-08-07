@@ -25,7 +25,7 @@ class VacanciesAdapter @Inject constructor() : RecyclerView.Adapter<VacancyHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyHolder {
         val holder = VacancyHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_item_vacancy, parent, false))
+                .inflate(R.layout.list_item_vacancy, parent, false), parent.context.resources)
         return holder
     }
 

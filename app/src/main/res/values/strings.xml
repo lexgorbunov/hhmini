@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">HhMini</string>
     <string name="error_vacancies_loading">Ошибка загрузки вакансий</string>
+
+    <string name="salary_no_info">з/п не указана</string>
+    <string name="salary_from">от %d</string>
+    <string name="salary_to">до %d</string>
 </resources>

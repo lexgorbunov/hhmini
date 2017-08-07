@@ -3,6 +3,7 @@ package com.example.lex.hhmini.ui.main
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.example.lex.hhmini.R
 import com.example.lex.hhmini.data.models.Vacancy
@@ -27,8 +28,6 @@ class MainActivity : AppCompatActivity(), MainView, SwipeRefreshLayout.OnRefresh
     @Inject
     lateinit var adapter: VacanciesAdapter
     @Inject
-    lateinit var decorator: DefaultDecorator
-    @Inject
     lateinit var scrollListener: EndlessRecyclerOnScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity(), MainView, SwipeRefreshLayout.OnRefresh
 
         list.layoutManager = layoutManager
         list.adapter = adapter
-        list.addItemDecoration(decorator)
+        list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         scrollListener.onLoadMoreListener = this
         list.addOnScrollListener(scrollListener)
 
