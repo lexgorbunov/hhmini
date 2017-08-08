@@ -1,6 +1,6 @@
 package com.example.lex.hhmini.injections.app
 
-import com.example.lex.hhmini.data.retrofit.VacanciesService
+import com.example.lex.hhmini.data.VacanciesService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
