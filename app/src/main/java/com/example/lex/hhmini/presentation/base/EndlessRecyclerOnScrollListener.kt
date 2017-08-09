@@ -1,4 +1,4 @@
-package com.example.lex.hhmini.ui.base
+package com.example.lex.hhmini.presentation.base
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView

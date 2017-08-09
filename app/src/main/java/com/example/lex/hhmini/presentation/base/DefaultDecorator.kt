@@ -1,4 +1,4 @@
-package com.example.lex.hhmini.ui.base
+package com.example.lex.hhmini.presentation.base
 
 import android.content.Context
 import android.graphics.Rect

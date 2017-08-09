@@ -1,7 +1,7 @@
 package com.example.lex.hhmini.di.main
 
 import com.example.lex.hhmini.di.app.AppComponent
-import com.example.lex.hhmini.ui.main.MainActivity
+import com.example.lex.hhmini.presentation.main.MainActivity
 import dagger.Component
 
 

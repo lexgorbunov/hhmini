@@ -1,4 +1,4 @@
-package com.example.lex.hhmini.ui.main
+package com.example.lex.hhmini.presentation.main
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -9,16 +9,14 @@ import com.example.lex.hhmini.R
 import com.example.lex.hhmini.data.models.Vacancy
 import com.example.lex.hhmini.di.main.DaggerMainViewComponent
 import com.example.lex.hhmini.di.main.MainViewModule
-import com.example.lex.hhmini.presentation.main.MainView
-import com.example.lex.hhmini.presentation.main.MainViewPresenter
-import com.example.lex.hhmini.ui.base.EndlessRecyclerOnScrollListener
-import com.example.lex.hhmini.ui.base.OnLoadMoreListener
+import com.example.lex.hhmini.presentation.base.EndlessRecyclerOnScrollListener
+import com.example.lex.hhmini.presentation.base.OnLoadMoreListener
 import com.example.lex.hhmini.utils.extensions.getApp
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView, SwipeRefreshLayout.OnRefreshListener,
-        OnLoadMoreListener{
+        OnLoadMoreListener {
 
     @Inject
     lateinit var presenter: MainViewPresenter

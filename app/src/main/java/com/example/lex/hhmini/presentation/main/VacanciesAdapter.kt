@@ -1,4 +1,4 @@
-package com.example.lex.hhmini.ui.main
+package com.example.lex.hhmini.presentation.main
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
