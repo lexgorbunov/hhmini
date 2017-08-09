@@ -1,10 +1,9 @@
-package com.example.lex.hhmini.injections.app
+package com.example.lex.hhmini.di.app
 
 import com.example.lex.hhmini.BuildConfig
 import com.example.lex.hhmini.data.retrofit.UserAgentInterceptor
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton

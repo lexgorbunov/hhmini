@@ -7,11 +7,10 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.example.lex.hhmini.R
 import com.example.lex.hhmini.data.models.Vacancy
-import com.example.lex.hhmini.injections.main.DaggerMainViewComponent
-import com.example.lex.hhmini.injections.main.MainViewModule
+import com.example.lex.hhmini.di.main.DaggerMainViewComponent
+import com.example.lex.hhmini.di.main.MainViewModule
 import com.example.lex.hhmini.presentation.main.MainView
 import com.example.lex.hhmini.presentation.main.MainViewPresenter
-import com.example.lex.hhmini.ui.base.DefaultDecorator
 import com.example.lex.hhmini.ui.base.EndlessRecyclerOnScrollListener
 import com.example.lex.hhmini.ui.base.OnLoadMoreListener
 import com.example.lex.hhmini.utils.extensions.getApp
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity(), MainView, SwipeRefreshLayout.OnRefresh
     }
 
     override fun displayVacancies(list: List<Vacancy>, page: Int) {
-        swipe_refresh_layout.isRefreshing = false
+        swipe_refresh_layout?.post { swipe_refresh_layout.isRefreshing = false }
 
         if (page == 1) {
             adapter.setData(list)

@@ -1,4 +1,4 @@
-package com.example.lex.hhmini.injections.app
+package com.example.lex.hhmini.di.app
 
 import android.content.Context
 import com.example.lex.hhmini.data.db.DBHelper

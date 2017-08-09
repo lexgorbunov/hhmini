@@ -1,9 +1,8 @@
-package com.example.lex.hhmini.injections.app
+package com.example.lex.hhmini.di.app
 
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module

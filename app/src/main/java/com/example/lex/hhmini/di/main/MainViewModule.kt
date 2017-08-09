@@ -1,15 +1,10 @@
-package com.example.lex.hhmini.injections.main
+package com.example.lex.hhmini.di.main
 
 import android.content.Context
-import android.support.v4.app.SupportActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.example.lex.hhmini.presentation.main.MainView
-import com.example.lex.hhmini.ui.main.MainActivity
-import com.example.lex.hhmini.ui.main.VacanciesAdapter
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 import javax.inject.Scope
 
 @Scope

@@ -1,9 +1,9 @@
 package com.example.lex.hhmini
 
 import android.app.Application
-import com.example.lex.hhmini.injections.app.AppComponent
-import com.example.lex.hhmini.injections.app.AppModule
-import com.example.lex.hhmini.injections.app.DaggerAppComponent
+import com.example.lex.hhmini.di.app.AppComponent
+import com.example.lex.hhmini.di.app.AppModule
+import com.example.lex.hhmini.di.app.DaggerAppComponent
 
 
 class App : Application() {

@@ -8,41 +8,59 @@ import com.example.lex.hhmini.data.models.Vacancy
 import io.reactivex.Single
 import javax.inject.Inject
 
-class VacancyDao @Inject constructor(val dbHelper: DBHelper) {
-    val salaryDao: SalaryDao
-    val employerDao: EmployerDao
+class VacancyRepository @Inject constructor(val dbHelper: DBHelper) {
+    val salaryRepository: SalaryRepository
+    val employerRepository: EmployerRepository
 
     init {
-        salaryDao = SalaryDao(dbHelper)
-        employerDao = EmployerDao(dbHelper)
+        salaryRepository = SalaryRepository(dbHelper)
+        employerRepository = EmployerRepository(dbHelper)
     }
 
     fun getList(searchText: String, page: Int): Single<List<Vacancy>> {
         return Single.just(findVacancies())
     }
 
+    fun selectAllFields(): String {
+        return """
+            ${DB.TABLE_VACANCIES}.vacancy_id as ${DB.TABLE_VACANCIES}_vacancy_id,
+            ${DB.TABLE_VACANCIES}.name as ${DB.TABLE_VACANCIES}_name,
+            ${DB.TABLE_VACANCIES}.salary_id as ${DB.TABLE_VACANCIES}_salary_id,
+            ${DB.TABLE_VACANCIES}.employer_id as ${DB.TABLE_VACANCIES}_employer_id
+        """
+    }
+
     fun findVacancies(): List<Vacancy> {
         val database = dbHelper.writableDatabase
-        val sql = "SELECT * FROM ${DB.TABLE_VACANCIES}"
+        val sql = """SELECT
+            ${selectAllFields()},
+            ${salaryRepository.selectAllFields()},
+            ${employerRepository.selectAllFields()}
+
+        FROM ${DB.TABLE_VACANCIES}
+        LEFT JOIN ${DB.TABLE_SALARIES} on ${DB.TABLE_VACANCIES}.salary_id = ${DB.TABLE_SALARIES}.id
+        LEFT JOIN ${DB.TABLE_EMPLOYER} on ${DB.TABLE_VACANCIES}.employer_id = ${DB.TABLE_EMPLOYER}.id"""
         val cursor = database.rawQuery(sql, null)
         val vacanciesList = mutableListOf<Vacancy>()
 
-        while (cursor.moveToNext()) {
-            vacanciesList.add(fromCursor(cursor))
+        cursor.use {
+            while (it.moveToNext()) {
+                vacanciesList.add(fromCursor(it))
+            }
         }
-        cursor.close()
 
         return vacanciesList
     }
 
     private fun fromCursor(cursor: Cursor): Vacancy {
-        val salaryId = if (DB.notNull(cursor, "salary_id")) DB.getLong(cursor, "salary_id") else -1
-        val salary = if (salaryId != -1L) salaryDao.findOne(salaryId) else null
+        val salaryId = if (DB.notNull(cursor, "${DB.TABLE_VACANCIES}_salary_id")) DB.getLong(cursor, "${DB.TABLE_VACANCIES}_salary_id") else -1
+        val salary = if (salaryId != -1L) salaryRepository.fromCursor(cursor) else null
 
-        val employer = employerDao.findOne(DB.getLong(cursor, "employer_id"))!!
+//        val employer = employerRepository.findOne(DB.getLong(cursor, "employer_id"))!!
+        val employer = employerRepository.fromCursor(cursor)
 
-        return Vacancy(DB.getString(cursor, "vacancy_id"),
-                DB.getString(cursor, "name"),
+        return Vacancy(DB.getString(cursor, "${DB.TABLE_VACANCIES}_vacancy_id"),
+                DB.getString(cursor, "${DB.TABLE_VACANCIES}_name"),
                 salary, employer)
     }
 
@@ -62,11 +80,11 @@ class VacancyDao @Inject constructor(val dbHelper: DBHelper) {
                 insertStatement.bindString(2, vacancy.name)
                 // TODO Связанная сущность
                 if (vacancy.salary != null) {
-                    insertStatement.bindLong(3, salaryDao.saveOne(vacancy.salary))
+                    insertStatement.bindLong(3, salaryRepository.saveOne(vacancy.salary))
                 } else {
                     insertStatement.bindNull(3)
                 }
-                insertStatement.bindLong(4, employerDao.saveOne(vacancy.employer))
+                insertStatement.bindLong(4, employerRepository.saveOne(vacancy.employer))
                 insertStatement.executeInsert()
             }
             database.setTransactionSuccessful()

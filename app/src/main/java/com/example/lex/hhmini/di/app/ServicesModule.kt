@@ -1,4 +1,4 @@
-package com.example.lex.hhmini.injections.app
+package com.example.lex.hhmini.di.app
 
 import com.example.lex.hhmini.data.VacanciesService
 import dagger.Module

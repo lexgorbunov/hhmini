@@ -1,7 +1,7 @@
-package com.example.lex.hhmini.injections.app
+package com.example.lex.hhmini.di.app
 
-import com.example.lex.hhmini.data.db.DBHelper
 import com.example.lex.hhmini.data.VacanciesService
+import com.example.lex.hhmini.data.db.DBHelper
 import dagger.Component
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

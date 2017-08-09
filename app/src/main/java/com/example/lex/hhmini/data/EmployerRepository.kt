@@ -7,11 +7,23 @@ import com.example.lex.hhmini.data.db.DBHelper
 import com.example.lex.hhmini.data.models.Vacancy
 import javax.inject.Inject
 
-class EmployerDao @Inject constructor(val dbHelper: DBHelper) {
+class EmployerRepository @Inject constructor(val dbHelper: DBHelper) {
+
+    fun selectAllFields(): String {
+        return """
+            ${DB.TABLE_EMPLOYER}.id as ${DB.TABLE_EMPLOYER}_id,
+            ${DB.TABLE_EMPLOYER}.name as ${DB.TABLE_EMPLOYER}_name,
+            ${DB.TABLE_EMPLOYER}.url as ${DB.TABLE_EMPLOYER}_url,
+            ${DB.TABLE_EMPLOYER}.trusted as ${DB.TABLE_EMPLOYER}_trusted
+        """
+    }
 
     fun findOne(id: Long): Vacancy.Employer? {
         val database = dbHelper.writableDatabase
-        val sql = "SELECT * FROM ${DB.TABLE_EMPLOYER} WHERE id = $id LIMIT 1"
+        val sql = """SELECT
+            ${selectAllFields()}
+            FROM ${DB.TABLE_EMPLOYER}
+            WHERE id = $id LIMIT 1"""
         val cursor = database.rawQuery(sql, null)
 
         cursor.use {
@@ -19,9 +31,9 @@ class EmployerDao @Inject constructor(val dbHelper: DBHelper) {
         }
     }
 
-    private fun fromCursor(cursor: Cursor): Vacancy.Employer =
-            Vacancy.Employer(DB.getLong(cursor, "id"), DB.getString(cursor, "name"),
-                DB.getString(cursor, "url"), DB.getInt(cursor, "trusted") == DB.BOOLEAN_TRUE)
+    fun fromCursor(cursor: Cursor): Vacancy.Employer =
+            Vacancy.Employer(DB.getLong(cursor, "${DB.TABLE_EMPLOYER}_id"), DB.getString(cursor, "${DB.TABLE_EMPLOYER}_name"),
+                DB.getString(cursor, "${DB.TABLE_EMPLOYER}_url"), DB.getInt(cursor, "${DB.TABLE_EMPLOYER}_trusted") == DB.BOOLEAN_TRUE)
 
 
     fun saveOne(entry: Vacancy.Employer): Long {

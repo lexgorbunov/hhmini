@@ -7,11 +7,24 @@ import com.example.lex.hhmini.data.db.DBHelper
 import com.example.lex.hhmini.data.models.Vacancy
 import javax.inject.Inject
 
-class SalaryDao @Inject constructor(val dbHelper: DBHelper) {
+class SalaryRepository @Inject constructor(val dbHelper: DBHelper) {
+
+    fun selectAllFields(): String {
+        return """
+            ${DB.TABLE_SALARIES}.id as ${DB.TABLE_SALARIES}_id,
+            ${DB.TABLE_SALARIES}.from_val as ${DB.TABLE_SALARIES}_from_val,
+            ${DB.TABLE_SALARIES}.to_val as ${DB.TABLE_SALARIES}_to_val,
+            ${DB.TABLE_SALARIES}.gross as ${DB.TABLE_SALARIES}_gross,
+            ${DB.TABLE_SALARIES}.currency as ${DB.TABLE_SALARIES}_currency
+        """
+    }
 
     fun findOne(id: Long): Vacancy.Salary? {
         val database = dbHelper.writableDatabase
-        val sql = "SELECT * FROM ${DB.TABLE_SALARIES} WHERE id = $id LIMIT 1"
+        val sql = """SELECT
+            ${selectAllFields()}
+            FROM ${DB.TABLE_SALARIES}
+            WHERE ${DB.TABLE_SALARIES}.id = $id LIMIT 1"""
         val cursor = database.rawQuery(sql, null)
 
         cursor.use {
@@ -19,9 +32,9 @@ class SalaryDao @Inject constructor(val dbHelper: DBHelper) {
         }
     }
 
-    private fun fromCursor(cursor: Cursor): Vacancy.Salary =
-            Vacancy.Salary(DB.getLong(cursor, "from_val"), DB.getLong(cursor, "to_val"),
-                DB.getInt(cursor, "gross") == DB.BOOLEAN_TRUE, DB.getString(cursor, "currency"))
+    fun fromCursor(cursor: Cursor): Vacancy.Salary =
+            Vacancy.Salary(DB.getLong(cursor, "${DB.TABLE_SALARIES}_from_val"), DB.getLong(cursor, "${DB.TABLE_SALARIES}_to_val"),
+                DB.getInt(cursor, "${DB.TABLE_SALARIES}_gross") == DB.BOOLEAN_TRUE, DB.getString(cursor, "${DB.TABLE_SALARIES}_currency"))
 
     fun saveOne(entry: Vacancy.Salary): Long {
         val database = dbHelper.writableDatabase

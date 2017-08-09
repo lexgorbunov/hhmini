@@ -1,6 +1,6 @@
-package com.example.lex.hhmini.injections.main
+package com.example.lex.hhmini.di.main
 
-import com.example.lex.hhmini.injections.app.AppComponent
+import com.example.lex.hhmini.di.app.AppComponent
 import com.example.lex.hhmini.ui.main.MainActivity
 import dagger.Component
 
