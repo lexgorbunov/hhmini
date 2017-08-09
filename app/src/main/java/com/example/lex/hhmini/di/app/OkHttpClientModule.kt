@@ -1,7 +1,7 @@
 package com.example.lex.hhmini.di.app
 
 import com.example.lex.hhmini.BuildConfig
-import com.example.lex.hhmini.data.retrofit.UserAgentInterceptor
+import com.example.lex.hhmini.retrofit.UserAgentInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

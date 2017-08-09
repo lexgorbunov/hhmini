@@ -5,6 +5,8 @@ import com.example.lex.hhmini.data.models.Vacancy
 import com.example.lex.hhmini.domain.GetVacanciesFromApiUseCase
 import com.example.lex.hhmini.domain.GetVacanciesFromDBUseCase
 import com.example.lex.hhmini.domain.SaveVacanciesToDBUseCase
+import com.example.lex.hhmini.presentation.base.BasePresenter
+import com.example.lex.hhmini.presentation.base.BasePresenterImpl
 import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
@@ -12,9 +14,9 @@ open class MainViewPresenter @Inject constructor(
         val view: MainView,
         val loadFeedApiUseCase: GetVacanciesFromApiUseCase,
         val loadFeedDbUseCase: GetVacanciesFromDBUseCase,
-        val saveFeedUseCase: SaveVacanciesToDBUseCase) : MainPresenter() {
+        val saveFeedUseCase: SaveVacanciesToDBUseCase) : BasePresenter by BasePresenterImpl() {
 
-    override fun loadVacancies(page: Int) {
+    fun loadVacancies(page: Int) {
 //        loadFeedApiUseCase.getList(SEARCH_TEXT, page)
 //                .doOnSuccess {
 //                    saveFeedUseCase.saveList(it, page)

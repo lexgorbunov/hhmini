@@ -29,11 +29,9 @@ class VacanciesAdapter @Inject constructor() : RecyclerView.Adapter<VacancyHolde
         return holder
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount() = data.size
 
-    override fun onBindViewHolder(holder: VacancyHolder?, position: Int) {
+    override fun onBindViewHolder(holder: VacancyHolder?, position: Int): Unit {
         holder?.bind(data[position])
     }
 
